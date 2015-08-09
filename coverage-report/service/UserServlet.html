@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UserServlet.java</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  <link rel='stylesheet' type='text/css' href='../coverage.css'/>
+  <link rel='shortcut icon' type='image/png' href='../logo.png'/>
+  <script type='text/javascript' src='../coverage.js'></script>
+  <script type='text/javascript' src='../prettify.js'></script>
+</head>
+<body onload='prettyPrint()'>
+  <table cellpadding='0' cellspacing='1'>
+    <caption>api/src/service/UserServlet.java</caption>
+    <tr>
+      <td class='line'>1</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>package service;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td><pre class='imports prettyprint' onclick='showHideLines(this)'><div>import java.io.IOException;
+import java.sql.SQLTimeoutException;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.api.server.spi.response.InternalServerErrorException;
+import com.google.api.server.spi.response.NotFoundException;
+import com.google.gson.Gson;
+
+import db.DBAccess;
+import db.DBUser;
+</div><span>import ...</span></pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>17</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>@SuppressWarnings("serial")</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>18</td><td class='count'>21</td>
+      <td><pre class='prettyprint covered' id='l18s0'>public class UserServlet extends HttpServlet {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>	/**
+	 * Get existing user
+	 */</div><span>	/*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>23</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>24</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l24s0'>		String user_name = req.getParameter("user_name");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>25</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l25s0'>		String user_id = req.getParameter("user_id");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>26</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>27</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l27s0'>			int id = Utils.parseInt(user_id, 0);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>28</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			DBUser user;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>29</td><td class='count'>6</td>
+      <td><pre class='prettyprint jmp'>			<span id='l29s0' title='Executions: 6' class='covered'>if (user_name == null</span> || <span id='l29s1' title='Executions: 6' class='covered'>user_name.length() &lt; 3)</span>{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>30</td><td class='count'>2</td>
+      <td><pre class='prettyprint jmp'>				<span id='l30s0' title='Executions: 2' class='covered'>if (id == 0)</span>{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>31</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l31s0'>					throw new IllegalArgumentException("Parameter user_name or user_id required.");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>32</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>				} else {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>33</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l33s0'>					user = DBAccess.getUserInfo(id);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>34</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>				}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>35</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l35s0'>			} else {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>36</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l36s0'>				user = DBAccess.getUserInfo(user_name);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>37</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>39</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l39s0'>			Gson gson = new Gson();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>40</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l40s0'>			resp.setContentType(Utils.jsonType);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>41</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l41s0'>			resp.getWriter().print(gson.toJson(user));</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>43</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l43s0'>		} catch (SQLTimeoutException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>44</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l44s0'>			Utils.serverError(resp, "Database cannot be reached");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>45</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l45s0'>		} catch (IllegalArgumentException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>46</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l46s0'>			Utils.badRequest(resp, e.getMessage());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>47</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l47s0'>		} catch (InternalServerErrorException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>48</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l48s0'>			Utils.serverError(resp, e.getMessage());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>49</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l49s0'>		} catch (NotFoundException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>50</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l50s0'>			Utils.notFound(resp, "User not found");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>51</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>52</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l52s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>	/**
+	 * Edit existing user
+	 */</div><span>	/*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>57</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>58</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>59</td><td class='count'>9</td>
+      <td><pre class='prettyprint covered' id='l59s0'>			String cType = req.getContentType();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>60</td><td class='count'>9</td>
+      <td><pre class='prettyprint jmp'>			<span id='l60s0' title='Executions: 9' class='covered'>if (! cType.equalsIgnoreCase(Utils.jsonType))</span>{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>61</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l61s0'>				throw new IllegalArgumentException(</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>62</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l62s0'>						"Content type must be 'application/json' instead of '" </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>63</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l63s0'>								+ cType + "'");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>64</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			} </pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>66</td><td class='count'>8</td>
+      <td><pre class='prettyprint covered' id='l66s0'>			DBUser user = (DBUser) Utils.parseJSON(req, DBUser.class);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>68</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l68s0'>			DBAccess.editUser(user);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>69</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l69s0'>			Utils.ok(resp);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>70</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l70s0'>		} catch (SQLTimeoutException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>71</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l71s0'>			Utils.serverError(resp, "Database cannot be reached");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>72</td><td class='count'>5</td>
+      <td><pre class='prettyprint covered' id='l72s0'>		} catch (IllegalArgumentException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>73</td><td class='count'>5</td>
+      <td><pre class='prettyprint covered' id='l73s0'>			Utils.badRequest(resp, e.getMessage());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>74</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l74s0'>		} catch (InternalServerErrorException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>75</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l75s0'>			Utils.serverError(resp, e.getMessage());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>76</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		} </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>77</td><td class='count'>9</td>
+      <td><pre class='prettyprint covered' id='l77s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>	/**
+	 * Insert new user
+	 */</div><span>	/*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>82</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>83</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l83s0'>		String user_name = req.getParameter("user_name");</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>85</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>86</td><td class='count'>6</td>
+      <td><pre class='prettyprint jmp'>			<span id='l86s0' title='Executions: 6' class='covered'>if (user_name == null</span> || <span id='l86s1' title='Executions: 5' class='covered'>user_name.length() &lt; 3)</span>{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>87</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l87s0'>				throw new IllegalArgumentException("Parameter user_name of at least 3 characters.");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>88</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>90</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l90s0'>			int id = DBAccess.addUser(user_name);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>91</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l91s0'>			Utils.created(resp, "User", id);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>92</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l92s0'>		} catch (SQLTimeoutException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>93</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l93s0'>			Utils.serverError(resp, "Database cannot be reached");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>94</td><td class='count'>3</td>
+      <td><pre class='prettyprint covered' id='l94s0'>		} catch (IllegalArgumentException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>95</td><td class='count'>3</td>
+      <td><pre class='prettyprint covered' id='l95s0'>			Utils.badRequest(resp, e.getMessage());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>96</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l96s0'>		} catch (InternalServerErrorException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>97</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l97s0'>			Utils.serverError(resp, e.getMessage());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>98</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		} </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>99</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l99s0'>	}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>100</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>}</pre></td>
+    </tr>
+  </table>
+</body>
+</html>

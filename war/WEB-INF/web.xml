@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<servlet>
+		<servlet-name>Status</servlet-name>
+		<servlet-class>service.StatusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Status</servlet-name>
+		<url-pattern>/status</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ListAllNets</servlet-name>
+		<servlet-class>service.ListAllNetsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ListAllNets</servlet-name>
+		<url-pattern>/listnets</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ListUsers</servlet-name>
+		<servlet-class>service.ListUsersServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ListUsers</servlet-name>
+		<url-pattern>/listusers</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CreateNet</servlet-name>
+		<servlet-class>service.CreateNetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateNet</servlet-name>
+		<url-pattern>/createnet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>FullNet</servlet-name>
+		<servlet-class>service.FullNetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FullNet</servlet-name>
+		<url-pattern>/fullnet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>GetRules</servlet-name>
+		<servlet-class>service.GetRulesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetRules</servlet-name>
+		<url-pattern>/getrules</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Suggest</servlet-name>
+		<servlet-class>service.SuggestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Suggest</servlet-name>
+		<url-pattern>/suggest</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>User</servlet-name>
+		<servlet-class>service.UserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>User</servlet-name>
+		<url-pattern>/user</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<resource-files>
+	    <include path="WEB-INF/nets/*" />
+	</resource-files>
+</web-app>

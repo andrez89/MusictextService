@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SuggestServlet.java</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  <link rel='stylesheet' type='text/css' href='../coverage.css'/>
+  <link rel='shortcut icon' type='image/png' href='../logo.png'/>
+  <script type='text/javascript' src='../coverage.js'></script>
+  <script type='text/javascript' src='../prettify.js'></script>
+</head>
+<body onload='prettyPrint()'>
+  <table cellpadding='0' cellspacing='1'>
+    <caption>api/src/service/SuggestServlet.java</caption>
+    <tr>
+      <td class='line'>1</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>package service;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td><pre class='imports prettyprint' onclick='showHideLines(this)'><div>import java.io.IOException;
+import java.sql.SQLTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import jess.JessException;
+import jesswrapper.JessEngine;
+import jesswrapper.NotSimpleIDResultsException;
+import jesswrapper.Observation;
+
+import com.google.api.server.spi.response.InternalServerErrorException;
+import com.google.api.server.spi.response.NotFoundException;
+import com.google.gson.Gson;
+
+import db.DBAccess;
+import db.DBArtist;
+import db.DBOsservazione;
+import db.DBRequestSugg;
+import db.DBSuggerimento;
+import db.DBTag;
+import db.DBUser;
+</div><span>import ...</span></pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>29</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>@SuppressWarnings("serial")</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>30</td><td class='count'>7</td>
+      <td><pre class='prettyprint covered' id='l30s0'>public class SuggestServlet extends HttpServlet {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>32</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>33</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		try {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>35</td><td class='count'>7</td>
+      <td><pre class='prettyprint covered' id='l35s0'>			DBRequestSugg request = (DBRequestSugg) Utils.parseJSON(req, DBRequestSugg.class);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>36</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l36s0'>			int id_user = request.getId();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>37</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l37s0'>			int id_net = 3; // musictext network</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>39</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// una volta con le regole statiche - lista tag statici(artisti)</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>40</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l40s0'>			String queryNode1 = "Tag";</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>42</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// get lista artisti dell'utente</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>43</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l43s0'>			DBUser user = DBAccess.getUserInfo(id_user);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>44</td><td class='count'>5</td>
+      <td><pre class='prettyprint jmp'>			<span id='l44s0' title='Executions: 5' class='covered'>if (user.getArtists() == null</span> || <span id='l44s1' title='Executions: 4' class='covered'>user.getArtists().size()==0)</span></pre></td>
+    </tr>
+    <tr>
+      <td class='line'>45</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l45s0'>				throw new InternalServerErrorException("L'utente non ha artisti preferiti");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>46</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l46s0'>			ArrayList&lt;Observation> osservazioni = new ArrayList&lt;Observation>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>47</td><td class='count'>24</td>
+      <td><pre class='prettyprint covered' id='l47s0'>			for (DBArtist a:user.getArtists())</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>48</td><td class='count'>16</td>
+      <td><pre class='prettyprint covered' id='l48s0'>				osservazioni.add(new Observation("Artist", a.getId() + ""));</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>50</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// get regole statiche 0</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>51</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l51s0'>			List&lt;String> rules1 = DBAccess.getRules(id_net, id_user, false);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>52</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l52s0'>			JessEngine je = new JessEngine();</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>54</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l54s0'>			je.addTemplate(queryNode1);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>55</td><td class='count'>12</td>
+      <td><pre class='prettyprint covered' id='l55s0'>			for(String r: rules1){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>56</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l56s0'>				je.addRule(r);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>57</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>59</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// uso inferIds (["artist", id], "tag") -> lista tag</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>60</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l60s0'>			List&lt;Integer> resultTag1 = je.inferIDs(osservazioni, queryNode1);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>62</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// --------------------------------------</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>63</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// una volta con le regole dinamiche dell'utente - lista tag contestuali </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>64</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l64s0'>			String queryNode2 = "Tag_cluster";</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>66</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// get regole dinamiche dell'utente</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>67</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l67s0'>			List&lt;String> rules2 = DBAccess.getRules(id_net, id_user, true);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>68</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l68s0'>			JessEngine je2 = new JessEngine();</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>70</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// get lista osservazioni  [temperatura, condizioni_meteo, mezzo, km_to_run, momento_viaggio]</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>71</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l71s0'>			ArrayList&lt;Observation> input = new ArrayList&lt;Observation>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>72</td><td class='count'>28</td>
+      <td><pre class='prettyprint covered' id='l72s0'>			for(DBOsservazione o:request.getOsservazioni()){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>73</td><td class='count'>20</td>
+      <td><pre class='prettyprint covered' id='l73s0'>				input.add(new Observation(o.getName(),o.getValue()));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>74</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>76</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// uso infer (["osserv", "valore"], tag_cluster) -> 1 tag_cluster</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>77</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l77s0'>			String resultCluterTag = "";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>78</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>79</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l79s0'>				resultCluterTag = je2.infer(rules2, input, queryNode2);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>80</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l80s0'>			} catch (JessException e1) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>81</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l81s0'>				e1.printStackTrace();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>82</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>84</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// ottenere lista tag da tag_cluster</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>85</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			List&lt;Integer> resultTag2;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>86</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>87</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l87s0'>				resultTag2 = DBAccess.getTags(resultCluterTag);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>88</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l88s0'>			} catch(IllegalArgumentException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>89</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l89s0'>				throw new InternalServerErrorException(e.getMessage());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>90</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>92</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// semplice intersezione di liste</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>93</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l93s0'>			List&lt;Integer> result = Utils.intersection(resultTag1, resultTag2);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>95</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// restituzione suggerimento</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>96</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l96s0'>			DBSuggerimento sugg = new DBSuggerimento();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>97</td><td class='count'>7</td>
+      <td><pre class='prettyprint covered' id='l97s0'>			for (Integer t:result)</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>98</td><td class='count'>3</td>
+      <td><pre class='prettyprint covered' id='l98s0'>				sugg.addTag(new DBTag(t));</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>100</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l100s0'>			Gson gson = new Gson();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>101</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l101s0'>			resp.setContentType(Utils.jsonType);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>102</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l102s0'>			resp.addHeader("cluster", resultCluterTag);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>103</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l103s0'>			resp.getWriter().print(gson.toJson(sugg));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>104</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l104s0'>		} catch (SQLTimeoutException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>105</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l105s0'>			Utils.serverError(resp, "Database cannot be reached");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>106</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l106s0'>		} catch (IllegalArgumentException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>107</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l107s0'>			Utils.badRequest(resp, e.getMessage());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>108</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l108s0'>		} catch (InternalServerErrorException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>109</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l109s0'>			Utils.serverError(resp, e.getMessage());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>110</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l110s0'>		} catch (NotFoundException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>111</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l111s0'>			Utils.notFound(resp, e.getMessage());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>112</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l112s0'>		} catch (NotSimpleIDResultsException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>113</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l113s0'>			Utils.serverError(resp, e.getMessage());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>114</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>115</td><td class='count'>7</td>
+      <td><pre class='prettyprint covered' id='l115s0'>	}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>116</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>}</pre></td>
+    </tr>
+  </table>
+</body>
+</html>

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JessEngine.java</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  <link rel='stylesheet' type='text/css' href='../coverage.css'/>
+  <link rel='shortcut icon' type='image/png' href='../logo.png'/>
+  <script type='text/javascript' src='../coverage.js'></script>
+  <script type='text/javascript' src='../prettify.js'></script>
+</head>
+<body onload='prettyPrint()'>
+  <table cellpadding='0' cellspacing='1'>
+    <caption>api/src/jesswrapper/JessEngine.java</caption>
+    <tr>
+      <td class='line'>1</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>package jesswrapper;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td><pre class='imports prettyprint' onclick='showHideLines(this)'><div>import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import jess.JessException;
+import jess.Rete;
+</div><span>import ...</span></pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>9</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>public class JessEngine {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>10</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	private Rete engine;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>11</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	private ArrayList&lt;String> templateNames;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>12</td><td class='count'>8</td>
+      <td><pre class='prettyprint covered' id='l12s0'>	public JessEngine(){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>13</td><td class='count'>8</td>
+      <td><pre class='prettyprint covered' id='l13s0'>		this.engine = new Rete();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>14</td><td class='count'>8</td>
+      <td><pre class='prettyprint covered' id='l14s0'>		templateNames = new ArrayList&lt;String>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>15</td><td>&nbsp;</td>
+      <td><pre class='comment'>		//engine.executeCommand("(defrule DepositoScelta (Mezzo ?m) => (store \"Mezzo\" ?m))");}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>16</td><td class='count'>8</td>
+      <td><pre class='prettyprint covered' id='l16s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>18</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	private String checkBlankSpace(String ruleName){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>19</td><td class='count'>12</td>
+      <td><pre class='prettyprint covered' id='l19s0'>		char [] stringArray = ruleName.toCharArray();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>20</td><td class='count'>12</td>
+      <td><pre class='prettyprint covered' id='l20s0'>		String toReturn="";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>21</td><td class='count'>48</td>
+      <td><pre class='prettyprint covered' id='l21s0'>		for(int i=0; i&lt;stringArray.length; i++){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>22</td><td class='count'>36</td>
+      <td><pre class='prettyprint jmp'>			<span id='l22s0' title='Executions: 36' class='covered'>if(stringArray[i]==' ')</span></pre></td>
+    </tr>
+    <tr>
+      <td class='line'>23</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l23s0'>				toReturn  = toReturn+"_";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>24</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			else</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>25</td><td class='count'>36</td>
+      <td><pre class='prettyprint covered' id='l25s0'>				toReturn = toReturn+stringArray[i];</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>26</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>27</td><td class='count'>12</td>
+      <td><pre class='prettyprint covered' id='l27s0'>		return toReturn;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>28</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>30</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public void addTemplate(String toInfer){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>31</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l31s0'>		String command = "(deftemplate Result_"+checkBlankSpace(toInfer)+" (slot "+checkBlankSpace(toInfer)+") (slot Reliability))";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>32</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>33</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println("Inviato comando "+command);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>34</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println(engine.executeCommand(command));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>35</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l35s0'>			engine.executeCommand(command);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>36</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l36s0'>		} catch (JessException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>37</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// TODO Auto-generated catch block</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>38</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l38s0'>			e.printStackTrace();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>39</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>41</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l41s0'>		this.templateNames.add(checkBlankSpace(toInfer));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>42</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l42s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>44</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public void addRule(String ruleName, String lhsRule, String rhsRule){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>45</td><td>&nbsp;</td>
+      <td><pre class='comment'>		//TODO check assert in rhsRule</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>46</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l46s0'>		String command = "(defrule "+ruleName+" ";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>47</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l47s0'>		command = command+lhsRule+" => "+rhsRule; //TODO check parentesis</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>48</td><td>&nbsp;</td>
+      <td><pre class='comment'>		//System.out.println("Invio comando "+command);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>49</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>50</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println(engine.executeCommand(command));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>51</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l51s0'>			engine.executeCommand(command);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>52</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l52s0'>		} catch (JessException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>53</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// TODO Auto-generated catch block</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>54</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l54s0'>			e.printStackTrace();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>55</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>56</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l56s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>58</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public String addRule(String command){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>59</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>60</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l60s0'>			return ""+engine.executeCommand(command);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>61</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l61s0'>		} catch (JessException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>62</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// TODO Auto-generated catch block</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>63</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l63s0'>			e.printStackTrace();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>64</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>66</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l66s0'>		return "";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>67</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>69</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public void defStoreRules(){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>70</td><td>&nbsp;</td>
+      <td><pre class='comment'>		//engine.executeCommand("(defrule DepositoScelta (Mezzo ?m) => (store \"Mezzo\" ?m))");}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>71</td><td class='count'>8</td>
+      <td><pre class='prettyprint covered' id='l71s0'>		for(int i=0; i&lt;this.templateNames.size(); i++){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>72</td><td class='count'>8</td>
+      <td><pre class='prettyprint covered' id='l72s0'>			String command = "(defrule DepositoScelta"+i+</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>73</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l73s0'>					" (Result_"+templateNames.get(i)+" ("+templateNames.get(i)+" ?m) (Reliability ?r)) => (store \""+templateNames.get(i)+"\" ?m))";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>74</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println("Inviato comando "+command);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>75</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>76</td><td>&nbsp;</td>
+      <td><pre class='comment'>				//System.out.println(engine.executeCommand(command));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>77</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l77s0'>				engine.executeCommand(command);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>78</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l78s0'>			} catch (JessException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>79</td><td>&nbsp;</td>
+      <td><pre class='comment'>				// TODO Auto-generated catch block</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>80</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l80s0'>				e.printStackTrace();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>81</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>82</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>83</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l83s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>85</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	private List&lt;Integer> parseResult(Iterator&lt;?> iterator, String toFetch) throws NotSimpleIDResultsException{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>86</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l86s0'>		List&lt;Integer> results = new ArrayList&lt;Integer>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>87</td><td class='count'>28</td>
+      <td><pre class='prettyprint covered' id='l87s0'>		while(iterator.hasNext()) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>88</td><td class='count'>20</td>
+      <td><pre class='prettyprint covered' id='l88s0'>			String element = iterator.next().toString();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>89</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println("Element:"+element);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>90</td><td class='count'>20</td>
+      <td><pre class='prettyprint covered' id='l90s0'>			String []splitted = element.split("::");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>91</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println("Splitted:"+splitted[0]+","+splitted[1]);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>92</td><td class='count'>20</td>
+      <td><pre class='prettyprint covered' id='l92s0'>			String []name_value = splitted[1].split(" ");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>93</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println("Name_value:"+name_value[0]+","+name_value[1]);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>94</td><td class='count'>20</td>
+      <td><pre class='prettyprint jmp'>			<span id='l94s0' title='Executions: 20' class='covered'>if(name_value[0].equals(toFetch))</span>{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>95</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l95s0'>				String cleaned = name_value[1].replace(')', '\0');</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>96</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l96s0'>				char[] resultsArray = cleaned.toCharArray();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>97</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l97s0'>				String partial="";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>98</td><td class='count'>112</td>
+      <td><pre class='prettyprint covered' id='l98s0'>				for(char c:resultsArray){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>99</td><td class='count'>108</td>
+      <td><pre class='prettyprint jmp'>					<span id='l99s0' title='Executions: 108' class='covered'>if(c==',')</span>{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>100</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>						try{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>101</td><td class='count'>24</td>
+      <td><pre class='prettyprint covered' id='l101s0'>							results.add(Integer.parseInt(partial));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>102</td><td class='count'>24</td>
+      <td><pre class='prettyprint covered' id='l102s0'>						}catch(Exception e){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>103</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l103s0'>							throw new NotSimpleIDResultsException("Not ID result found");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>104</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>						}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>105</td><td class='count'>24</td>
+      <td><pre class='prettyprint covered' id='l105s0'>						partial="";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>106</td><td class='count'>24</td>
+      <td><pre class='prettyprint covered' id='l106s0'>					}else{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>107</td><td class='count'>84</td>
+      <td><pre class='prettyprint covered' id='l107s0'>						partial +=c;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>108</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>					}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>110</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>				}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>111</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>112</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>114</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l114s0'>		return results;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>115</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>117</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public String infer(List&lt;String> rules, List&lt;Observation> observations, String toFetch) throws JessException{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>118</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l118s0'>		Rete engine = new Rete();</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>120</td><td>&nbsp;</td>
+      <td><pre class='comment'>		//System.out.println("Template1: "+engine.executeCommand("(deftemplate Result_Mood_meteo (slot Mood_meteo) (slot Reliability))"));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>121</td><td>&nbsp;</td>
+      <td><pre class='comment'>		//System.out.println("Template2: "+engine.executeCommand("(deftemplate Result_Travel_mood (slot Travel_mood) (slot Reliability))"));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>122</td><td>&nbsp;</td>
+      <td><pre class='comment'>		//System.out.println("Template3: "+engine.executeCommand("(deftemplate Result_Tag_cluster (slot Tag_cluster) (slot Reliability))"));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>123</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l123s0'>		engine.executeCommand("(deftemplate Result_Mood_meteo (slot Mood_meteo) (slot Reliability))");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>124</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l124s0'>		engine.executeCommand("(deftemplate Result_Travel_mood (slot Travel_mood) (slot Reliability))");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>125</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l125s0'>		engine.executeCommand("(deftemplate Result_Tag_cluster (slot Tag_cluster) (slot Reliability))");</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>127</td><td>&nbsp;</td>
+      <td><pre class='comment'>		//System.out.println("fetch rule: "+engine.executeCommand("(defrule DepositoCluster  (Result_Tag_cluster (Tag_cluster ?tc) (Reliability ?r)) => (store \"Tag_cluster\" ?tc))"));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>128</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l128s0'>		engine.executeCommand("(defrule DepositoCluster  (Result_Tag_cluster (Tag_cluster ?tc) (Reliability ?r)) => (store \"Tag_cluster\" ?tc))");</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>130</td><td class='count'>36</td>
+      <td><pre class='prettyprint covered' id='l130s0'>		for (String command:rules){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>131</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println("Command: "+command);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>132</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println(engine.executeCommand(command));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>133</td><td class='count'>28</td>
+      <td><pre class='prettyprint covered' id='l133s0'>			engine.executeCommand(command);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>134</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>136</td><td>&nbsp;</td>
+      <td><pre class='comment'>		//*</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>137</td><td class='count'>24</td>
+      <td><pre class='prettyprint covered' id='l137s0'>		for(int i=0; i&lt;observations.size(); i++){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>138</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>139</td><td>&nbsp;</td>
+      <td><pre class='comment'>				//System.out.println(engine.executeCommand("(assert ("+observations.get(i).getName()+" "+observations.get(i).getValue()+"))"));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>140</td><td class='count'>20</td>
+      <td><pre class='prettyprint covered' id='l140s0'>				engine.executeCommand("(assert ("+observations.get(i).getName()+" "+observations.get(i).getValue()+"))");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>141</td><td class='count'>20</td>
+      <td><pre class='prettyprint covered' id='l141s0'>			} catch (JessException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>142</td><td>&nbsp;</td>
+      <td><pre class='comment'>				// TODO Auto-generated catch block</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>143</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l143s0'>				e.printStackTrace();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>144</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>145</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println("Aggiunto fatto "+observations.get(i).getName()+" value: "+observations.get(i).getValue());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>146</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>		/*
+		System.out.println(engine.executeCommand("(watch all)"));
+		System.out.println(engine.executeCommand("(facts)"));
+		System.out.println(engine.executeCommand("(run)"));
+		System.out.println(engine.executeCommand("(facts)")); */</div><span>		/*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>152</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l152s0'>		engine.executeCommand("(watch all)");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>153</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l153s0'>		engine.executeCommand("(facts)");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>154</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l154s0'>		engine.executeCommand("(run)");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>155</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l155s0'>		engine.executeCommand("(facts)");</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>157</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l157s0'>		String result = "";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>158</td><td class='count'>4</td>
+      <td><pre class='prettyprint jmp'>		<span id='l158s0' title='Executions: 4' class='covered'>if(engine.fetch(toFetch)!=null)</span>{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>159</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>160</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l160s0'>				result = engine.fetch(toFetch).stringValue(engine.getGlobalContext());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>161</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l161s0'>			} catch (JessException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>162</td><td>&nbsp;</td>
+      <td><pre class='comment'>				// TODO Auto-generated catch block</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>163</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l163s0'>				e.printStackTrace();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>164</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>165</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>166</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l166s0'>		return result;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>167</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>169</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public List&lt;Integer> inferIDs(ArrayList&lt;Observation> observations, String toFetch) throws NotSimpleIDResultsException{</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>170</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l170s0'>		defStoreRules();</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>172</td><td>&nbsp;</td>
+      <td><pre class='comment'>		//Store facts</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>173</td><td class='count'>20</td>
+      <td><pre class='prettyprint covered' id='l173s0'>		for(int i=0; i&lt;observations.size(); i++){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>174</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//engine.store(observations.get(i).getName(), </pre></td>
+    </tr>
+    <tr>
+      <td class='line'>175</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//new Value(observations.get(i).getValue(), RU.ATOM));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>176</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>177</td><td>&nbsp;</td>
+      <td><pre class='comment'>				//System.out.println(engine.executeCommand("(assert ("+observations.get(i).getName()+" "+observations.get(i).getValue()+"))"));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>178</td><td class='count'>16</td>
+      <td><pre class='prettyprint covered' id='l178s0'>				engine.executeCommand("(assert ("+observations.get(i).getName()+" "+observations.get(i).getValue()+"))");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>179</td><td class='count'>16</td>
+      <td><pre class='prettyprint covered' id='l179s0'>			} catch (JessException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>180</td><td>&nbsp;</td>
+      <td><pre class='comment'>				// TODO Auto-generated catch block</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>181</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l181s0'>				e.printStackTrace();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>182</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>			}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>183</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println("Aggiunto fatto "+observations.get(i).getName()+" value: "+observations.get(i).getValue());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>184</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>185</td><td>&nbsp;</td>
+      <td><pre class='comment'>		//run rules</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>186</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		try {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>187</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println(engine.executeCommand("(watch all)"));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>188</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println(engine.executeCommand("(facts)"));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>189</td><td>&nbsp;</td>
+      <td><pre class='comment'>			//System.out.println(engine.executeCommand("(run)"));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>190</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l190s0'>			engine.executeCommand("(watch all)");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>191</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l191s0'>			engine.executeCommand("(facts)");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>192</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l192s0'>			engine.executeCommand("(run)");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>193</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l193s0'>		} catch (JessException e) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>194</td><td>&nbsp;</td>
+      <td><pre class='comment'>			// TODO Auto-generated catch block</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>195</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l195s0'>			e.printStackTrace();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>196</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>198</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l198s0'>		Iterator&lt;?> iterator = engine.listFacts();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>199</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l199s0'>		List&lt;Integer> results = parseResult(iterator,toFetch);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>201</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l201s0'>		return results;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>202</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>204</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>}</pre></td>
+    </tr>
+  </table>
+</body>
+</html>

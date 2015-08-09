@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DBNode.java</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  <link rel='stylesheet' type='text/css' href='../coverage.css'/>
+  <link rel='shortcut icon' type='image/png' href='../logo.png'/>
+  <script type='text/javascript' src='../coverage.js'></script>
+  <script type='text/javascript' src='../prettify.js'></script>
+</head>
+<body onload='prettyPrint()'>
+  <table cellpadding='0' cellspacing='1'>
+    <caption>api/src/db/DBNode.java</caption>
+    <tr>
+      <td class='line'>1</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>package db;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td><pre class='imports prettyprint' onclick='showHideLines(this)'><div>import java.util.ArrayList;
+import java.util.List;
+</div><span>import ...</span></pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>6</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>public class DBNode {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>7</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	private final int id;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>8</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	private final String name;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>9</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l9s0'>	private List&lt;DBOutcome> outcomes = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>10</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l10s0'>	private List&lt;DBNode> parents = null;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>11</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l11s0'>	public List&lt;Double> probabilities = null;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>13</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public DBNode(int id, String name) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>14</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l14s0'>		super();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>15</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l15s0'>		this.id = id;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>16</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l16s0'>		this.name = name;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>17</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l17s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>19</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public int getId() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>20</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l20s0'>		return id;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>21</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>23</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public String getName() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>24</td><td class='count'>3</td>
+      <td><pre class='prettyprint covered' id='l24s0'>		return name;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>25</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>27</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public List&lt;DBOutcome> getOutcomes() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>28</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l28s0'>		return outcomes;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>29</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>31</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public String[] getOutcomesArray() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>32</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l32s0'>		final String[] result = new String[outcomes.size()];</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>33</td><td class='count'>3</td>
+      <td><pre class='prettyprint covered' id='l33s0'>		for (int i = 0; i &lt; outcomes.size(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>34</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l34s0'>			result[i] = outcomes.get(i).getName();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>35</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>36</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l36s0'>		return result;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>37</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>39</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public List&lt;DBNode> getParents() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>40</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l40s0'>		return parents;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>41</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>43</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public String[] getParentsArray() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>44</td><td class='count'>1</td>
+      <td><pre class='prettyprint jmp'>		<span id='l44s0' title='Executions: 1' class='covered'>if (parents == null</span> || <span id='l44s1' title='Executions: 1' class='covered'>parents.size() == 0)</span> {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>45</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l45s0'>			return new String[]{};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>46</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>47</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l47s0'>		final String[] result = new String[parents.size()];</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>48</td><td class='count'>3</td>
+      <td><pre class='prettyprint covered' id='l48s0'>		for (int i = 0; i &lt; parents.size(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>49</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l49s0'>			result[i] = parents.get(i).getName();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>50</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>51</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l51s0'>		return result;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>52</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>54</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public List&lt;Double> getProbabilities() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>55</td><td class='count'>3</td>
+      <td><pre class='prettyprint covered' id='l55s0'>		return probabilities;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>56</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>58</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public double[] getProbabilitiesArray() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>59</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l59s0'>		return toPrimitive(probabilities);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>60</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>62</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public void addOutcome(DBOutcome outcome) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>63</td><td class='count'>2</td>
+      <td><pre class='prettyprint jmp'>		<span id='l63s0' title='Executions: 2' class='covered'>if (outcomes == null)</span></pre></td>
+    </tr>
+    <tr>
+      <td class='line'>64</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l64s0'>			outcomes = new ArrayList&lt;DBOutcome>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>65</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l65s0'>		this.outcomes.add(outcome);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>66</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l66s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>68</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public void addParent(DBNode parent) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>69</td><td class='count'>2</td>
+      <td><pre class='prettyprint jmp'>		<span id='l69s0' title='Executions: 2' class='covered'>if (parents == null)</span></pre></td>
+    </tr>
+    <tr>
+      <td class='line'>70</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l70s0'>			parents = new ArrayList&lt;DBNode>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>71</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l71s0'>		this.parents.add(parent);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>72</td><td class='count'>2</td>
+      <td><pre class='prettyprint covered' id='l72s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>74</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public void addProbability(double probability) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>75</td><td class='count'>3</td>
+      <td><pre class='prettyprint jmp'>		<span id='l75s0' title='Executions: 3' class='covered'>if (probabilities == null)</span></pre></td>
+    </tr>
+    <tr>
+      <td class='line'>76</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l76s0'>			probabilities = new ArrayList&lt;Double>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>77</td><td class='count'>3</td>
+      <td><pre class='prettyprint covered' id='l77s0'>		this.probabilities.add(probability);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>78</td><td class='count'>3</td>
+      <td><pre class='prettyprint covered' id='l78s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>80</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	private static double[] toPrimitive(List&lt;Double> array) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>81</td><td class='count'>1</td>
+      <td><pre class='prettyprint jmp'>		<span id='l81s0' title='Executions: 1' class='covered'>if (array == null</span> || <span id='l81s1' title='Executions: 1' class='covered'>array.size() == 0)</span> {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>82</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l82s0'>			return new double[]{};</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>83</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>84</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l84s0'>		final double[] result = new double[array.size()];</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>85</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l85s0'>		for (int i = 0; i &lt; array.size(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>86</td><td class='count'>3</td>
+      <td><pre class='prettyprint covered' id='l86s0'>			result[i] = array.get(i).doubleValue();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>87</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>		}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>88</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered' id='l88s0'>		return result;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>89</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>90</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>}</pre></td>
+    </tr>
+  </table>
+</body>
+</html>

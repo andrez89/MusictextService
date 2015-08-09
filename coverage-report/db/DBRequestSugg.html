@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DBRequestSugg.java</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  <link rel='stylesheet' type='text/css' href='../coverage.css'/>
+  <link rel='shortcut icon' type='image/png' href='../logo.png'/>
+  <script type='text/javascript' src='../coverage.js'></script>
+  <script type='text/javascript' src='../prettify.js'></script>
+</head>
+<body onload='prettyPrint()'>
+  <table cellpadding='0' cellspacing='1'>
+    <caption>api/src/db/DBRequestSugg.java</caption>
+    <tr>
+      <td class='line'>1</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>package db;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td><pre class='imports prettyprint' onclick='showHideLines(this)'><div>import java.util.ArrayList;
+import java.util.List;
+</div><span>import ...</span></pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>6</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>public class DBRequestSugg {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>7</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	private int idUser;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>8</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	private List&lt;DBOsservazione> osservazioni;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>10</td><td class='count'>7</td>
+      <td><pre class='prettyprint covered' id='l10s0'>	public DBRequestSugg(){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>11</td><td class='count'>7</td>
+      <td><pre class='prettyprint covered' id='l11s0'>		osservazioni = new ArrayList&lt;DBOsservazione>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>12</td><td class='count'>7</td>
+      <td><pre class='prettyprint covered' id='l12s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>14</td><td class='count'>21</td>
+      <td><pre class='prettyprint covered' id='l14s0'>	public DBRequestSugg(int idUser){</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>15</td><td class='count'>21</td>
+      <td><pre class='prettyprint covered' id='l15s0'>		this.idUser = idUser;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>16</td><td class='count'>21</td>
+      <td><pre class='prettyprint covered' id='l16s0'>		osservazioni = new ArrayList&lt;DBOsservazione>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>17</td><td class='count'>21</td>
+      <td><pre class='prettyprint covered' id='l17s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>19</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public int getId() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>20</td><td class='count'>6</td>
+      <td><pre class='prettyprint covered' id='l20s0'>		return idUser;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>21</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>23</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public List&lt;DBOsservazione> getOsservazioni() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>24</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered' id='l24s0'>		return osservazioni;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>25</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>27</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>	public void addOsservazione(DBOsservazione oss) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>28</td><td class='count'>77</td>
+      <td><pre class='prettyprint covered' id='l28s0'>		this.osservazioni.add(oss);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>29</td><td class='count'>77</td>
+      <td><pre class='prettyprint covered' id='l29s0'>	}</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>31</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>}</pre></td>
+    </tr>
+  </table>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<project name="musictext" default="tests" basedir=".">
+    <property name="projectName" value="musictext"/>
+    <property name="src" location="src"/>
+    <property name="test" location="test"/>
+    <property name="bin" location="war/WEB-INF/classes"/>
+    <property name="lib" location="war/WEB-INF/lib"/>
+
+	<property name="web.dir" value="war" />
+	<property name="web.classes.dir" location="${web.dir}/WEB-INF/classes" />
+
+	<property name="sdk.dir" location="/Applications/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.9.19/appengine-java-sdk-1.9.19" />
+	
+	<property name="junit.dir" location="/Applications/eclipse/plugins/org.junit_4.11.0.v201303080030" />
+
+	<property name="hamcrest.dir" location="/Applications/eclipse/plugins" />
+
+    <path id="classpath">
+		<fileset dir="war/WEB-INF/lib" includes="*.jar" />
+	    <fileset dir="${sdk.dir}/lib">
+	      <include name="shared/**/*.jar" />
+	    </fileset>
+	    <fileset dir="${junit.dir}" includes="*.jar" />
+	    <fileset dir="${hamcrest.dir}">
+	      <include name="org.hamcrest.core_1.3.0.v201303031735.jar" />
+	    </fileset>
+	</path>
+
+	<import file="${sdk.dir}/config/user/ant-macros.xml" />
+
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${bin}"/>
+    </target>
+
+    <target name="compile" depends="init" description="compile the source">
+        <javac srcdir="${src}" destdir="${bin}" includeantruntime="true" >
+            <classpath refid="classpath"/>
+        </javac>
+        <javac srcdir="${test}" destdir="${bin}" includeantruntime="true" >
+            <classpath refid="classpath"/>
+        </javac>
+        <copy todir="${bin}">
+            <fileset dir="${src}" excludes="**/*.java"/>            
+        </copy>
+    </target>   
+
+	<target name="tests" depends="compile" description="Run unit tests">
+		<junit fork="yes" forkmode="once" dir="." showoutput="true" printsummary="yes">
+			<assertions><enable/></assertions>
+			<classpath refid="classpath"/>
+			<classpath location="${web.classes.dir}" />
+			<!-- <classpath path="war/WEB-INF/lib/jmockit-coverage.jar"/> -->
+	        <sysproperty key="coverage-metrics" value="all"/>
+	        <!-- <sysproperty key="coverage-classes" value="*"/> -->
+	        <sysproperty key="coverage-srcDirs" value="${src}"/>
+
+			<batchtest>
+				<fileset dir="${test}">
+					<include name="**/*Test.*"/>
+				</fileset>
+			</batchtest>
+			<!--
+	        <formatter type="plain" usefile="false" /> - ->
+	        <formatter type="plain" /> <!- - to file -->
+		</junit>
+	</target>
+
+    <target name="clean" description="clean up">
+        <delete dir="${bin}"/>
+    </target>
+</project>
